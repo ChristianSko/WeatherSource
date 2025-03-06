@@ -41,7 +41,6 @@ struct WeatherFetchingTests {
         
         let weatherData = try await viewModel.fetchWeatherForLocation(viewModel.savedLocations[0])
         
-        // Verify the weather data matches our expectations
         #expect(weatherData.location == "Madrid", "Weather data should be for Madrid")
         #expect(weatherData.provider == .apple, "Weather data should come from the Apple provider")
         #expect(weatherData.temperature != nil, "Temperature should be provided")
@@ -61,6 +60,3 @@ struct WeatherFetchingTests {
         #expect(weatherData.provider == .pirate, "After switching, weather data should come from Pirate provider")
     }
 }
-
-
-// MARK: - Location Storage Tests
