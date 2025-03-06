@@ -2,8 +2,6 @@
 
 A clean, modular iOS weather application that allows users to search for locations and view current weather conditions using multiple weather service providers.
 
-![App Demo](demo.gif)
-
 ## ✨ Features
 
 - 🔍 **Search & Add Locations**: Search for cities and save them to track weather conditions
@@ -60,9 +58,10 @@ Run tests using `Cmd+U` or through the Test navigator in Xcode.
 - **SwiftData**: Modern, type-safe persistence with minimal boilerplate code
 - **Adaptive UI**: Different color schemes and icons based on the selected provider
 
-## 📸 Screenshots
+## 📸 Example
+![RocketSim_Recording_iPhone_16_Pro_6 3_2025-03-06_03 50 41](https://github.com/user-attachments/assets/5491fec4-0f06-4d31-a1e5-5e6542031ed2)
 
-*[Screenshots will be added here]*
+
 
 ## 📝 License
 
