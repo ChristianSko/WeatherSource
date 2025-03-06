@@ -9,35 +9,66 @@ import XCTest
 
 final class WeatherSourceUITests: XCTestCase {
 
+    let app = XCUIApplication()
+
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
         app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
-    @MainActor
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+    func testSearchfieldExists() {
+        let expectedSearchfields = 1
+        let actualSearchFields = app.searchFields.count
+        
+        XCTAssertEqual(
+            expectedSearchfields,
+            actualSearchFields,
+            "Searchfield count mismatch: Expected \(expectedSearchfields), found \(actualSearchFields). One is required to search and add a city."
+        )
+    }
+    func testListExists() {
+        let expectedLists = 1
+        let actualLists = app.collectionViews.count
+        
+        XCTAssertEqual(
+            expectedLists,
+            actualLists,
+            "List count mismatch: Expected \(expectedLists), found \(actualLists). One is required to showcase the list of cities."
+        )
+    }
+    
+    func testChangeProviderButtonExists() {
+        let changeProviderButton = app.buttons["Change provider"]
+        XCTAssertTrue(changeProviderButton.exists, "Change provider button should exist to enable Toggling between services")
+    }
+    
+    func testChangeToAppleWeatherButtonExists() {
+        let changeProviderButton = app.buttons["Change provider"]
+        changeProviderButton.tap()
+        
+        let appleWeatherButton = app.buttons["Apple Weather"]
+        XCTAssertTrue(appleWeatherButton.exists, "Apple Weather button should exist to switch to Apple Weather provider")
+    }
+    
+    func testChangeToPirateWeatherButtonExists() {
+        let changeProviderButton = app.buttons["Change provider"]
+        changeProviderButton.tap()
+        
+        let pirateWeatherButton = app.buttons["Pirate Weather"]
+        XCTAssertTrue(pirateWeatherButton.exists, "Pirate Weather button should exist to switch to Pirate Weather provider")
+    }
+    
+    func testMoreButtonExists() {
+        let moreButton = app.buttons["More"]
+        XCTAssertTrue(moreButton.exists, "More button should exist to offer additional options")
+    }
+    
+    func testDeleteAllLocationsButtonExists() {
+        let moreButton = app.buttons["More"]
+        moreButton.tap()
+        
+        let deleteAllLocationsButton = app.buttons["Delete all"]
+        XCTAssertTrue(deleteAllLocationsButton.exists, "Delete all button should exist to delete all locations")
+        
     }
 }
