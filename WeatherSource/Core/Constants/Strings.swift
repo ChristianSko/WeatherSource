@@ -23,6 +23,9 @@ enum Strings {
         static let searchOrAddPrompt = "Add or filter for a city"
         static let locationNotFound = "Could not find location '"
         static let checkAndTryAgain = "'. Please check the city name and try again."
+        static func invalidLocation(_ locationName: String) -> String {
+            return " '\(locationName)' is already in your locations."
+        }
         
         static func locationNotInList(_ locationName: String) -> String {
             return "'\(locationName)' is not in your locations"

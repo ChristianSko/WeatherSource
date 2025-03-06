@@ -26,17 +26,21 @@ final class WeatherSourceUITests: XCTestCase {
             "Searchfield count mismatch: Expected \(expectedSearchfields), found \(actualSearchFields). One is required to search and add a city."
         )
     }
-    func testListExists() {
-        let expectedLists = 1
-        let actualLists = app.collectionViews.count
+    func testListExistsAfterAddingLocation() {
+        let searchField = app.searchFields.firstMatch
+        searchField.tap()
+        searchField.typeText("Madrid")
+        app.keyboards.buttons["Search"].tap()
         
-        XCTAssertEqual(
-            expectedLists,
-            actualLists,
-            "List count mismatch: Expected \(expectedLists), found \(actualLists). One is required to showcase the list of cities."
+        let list = app.collectionViews.firstMatch
+        let expectation = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == true"),
+            object: list
         )
+        wait(for: [expectation], timeout: 5.0)
+        
+        XCTAssertTrue(list.exists, "List should appear after adding a location")
     }
-    
     func testChangeProviderButtonExists() {
         let changeProviderButton = app.buttons["Change provider"]
         XCTAssertTrue(changeProviderButton.exists, "Change provider button should exist to enable Toggling between services")

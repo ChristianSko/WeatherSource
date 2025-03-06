@@ -88,7 +88,7 @@ extension ContentView.ContentViewModel {
             await refreshAllWeatherData()
         } catch LocationError.geocodingFailed {
             alertItem = .error(
-                message: "Could not find location '\(city)'. Please check the city name and try again."
+                message: Strings.Locations.invalidLocation(city)
             )
         } catch LocationError.invalidInput {
             alertItem = .error(
@@ -137,7 +137,7 @@ extension ContentView.ContentViewModel {
     
     private func showDuplicateLocationAlert(_ locationName: String) {
         alertItem = .error(
-            message: "'\(locationName)' is already in your locations."
+            message: locationName + Strings.Locations.alreadyExists
         )
     }
     

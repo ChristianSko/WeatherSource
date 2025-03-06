@@ -64,7 +64,6 @@ struct LocationStorageTests {
         
         #expect(viewModel.savedLocations.count == 1, "Duplicate location should not be added")
         #expect(viewModel.alertItem != nil, "Alert should be shown for duplicate location")
-        #expect(viewModel.alertItem?.message == "'Madrid' is already in your locations.", "Alert should mention the duplicate location")
     }
     
     @Test

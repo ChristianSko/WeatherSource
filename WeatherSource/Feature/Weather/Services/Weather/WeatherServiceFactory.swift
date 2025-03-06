@@ -14,8 +14,22 @@ protocol WeatherServiceProtocol {
 
 class WeatherServiceFactory {
     static func createService(
-        for provider: WeatherProvider
+        for provider: WeatherProvider,
+        withFallback: Bool = true
     ) -> WeatherServiceProtocol {
+        let primaryService = createPrimaryService(for: provider)
+        
+        guard withFallback else {
+            return primaryService
+        }
+        
+        return FallbackWeatherService(
+            primaryService: primaryService,
+            fallbackServices: createFallbackServices(excluding: provider)
+        )
+    }
+    
+    private static func createPrimaryService(for provider: WeatherProvider) -> WeatherServiceProtocol {
         switch provider {
         case .apple:
             return AppleWeatherService()
@@ -23,4 +37,11 @@ class WeatherServiceFactory {
             return PirateWeatherService()
         }
     }
+    
+    private static func createFallbackServices(excluding provider: WeatherProvider) -> [WeatherServiceProtocol] {
+        WeatherProvider.allCases
+            .filter { $0 != provider }
+            .map { createService(for: $0, withFallback: false) }
+    }
 }
+
